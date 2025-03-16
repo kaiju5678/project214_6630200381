@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "subjectname": "Operating Systems",
+      "subjectid": "01418236",
+      "credit": 3,
+      "grade": "A"
+    },
+    {
+      "id": "2",
+      "subjectname": "Fundamentals of Artificial Intelligence",
+      "subjectid": "01418261",
+      "credit": 3,
+      "grade": "A"
+    },
+    {
+      "id": "3",
+      "subjectname": "Fundamentals of Database Systems",
+      "subjectid": "01418221",
+      "credit": 3,
+      "grade": "A"
+    },
+    {
+      "id": "4",
+      "subjectname": "Algorithm Design and Analysis",
+      "subjectid": "01418232",
+      "credit": 3,
+      "grade": "A"
+    },
+    {
+      "id": "5",
+      "subjectname": "Programming Internet of Things",
+      "subjectid": "01418234",
+      "credit": 3,
+      "grade": "A"
+    },
+    {
+      "id": "6",
+      "subjectname": "English and Culture through Songs",
+      "subjectid": "01355108",
+      "credit": 3,
+      "grade": "A"
+    },
+    {
+      "id": "7",
+      "subjectname": "Practicum in Software Development",
+      "subjectid": "01418214",
+      "credit": 1,
+      "grade": "A"
+    },
+    {
+      "subjectname": "Information Resources for Research",
+      "subjectid": "03752111",
+      "credit": 1,
+      "grade": "A",
+      "id": "8"
+    }
+  ]
+}
