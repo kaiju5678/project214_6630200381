@@ -21,7 +21,7 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img
-                    src="../../images/img002.jpg"
+                    src="../../images/img001.jpg"
                     class="d-block w-100 object-fit-cover"
                     style="height: 450px;" 
                     alt="Profile 1"
@@ -29,10 +29,18 @@
                   </div>
                 <div class="carousel-item">
                   <img
-                    src="../../images/img003.jpg"
+                    src="../../images/img002.jpg"
                     class="d-block w-100 object-fit-cover"
                     style="height: 450px;"
                     alt="Profile 2"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="../../images/img003.jpg"
+                    class="d-block w-100 object-fit-cover"
+                    style="height: 450px;"
+                    alt="Profile 3"
                   />
                 </div>
                 <div class="carousel-item">
