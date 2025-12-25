@@ -154,7 +154,13 @@ export default {
         credit: "3",
         grade: "A"
       },
-      items: [],
+      // 1. ใส่ข้อมูล Mock Data จาก db.json มาไว้ตรงนี้เลย
+      items: [
+        { id: 1, subjectid: "01418111", subjectname: "Computer Programming", credit: 3, grade: "A" },
+        { id: 2, subjectid: "01418112", subjectname: "Computer Programming Lab", credit: 1, grade: "A" },
+        { id: 3, subjectid: "01418113", subjectname: "Calculus I", credit: 3, grade: "B+" },
+        { id: 4, subjectid: "01418114", subjectname: "Digital Logic", credit: 3, grade: "B" }
+      ],
       isEditing: false,
       currentItem: null
     };
@@ -168,14 +174,10 @@ export default {
         if (grade === 'F') return 'bg-danger';
         return 'bg-secondary';
     },
-    async fetchItems() {
-      try {
-        const response = await fetch("http://localhost:3000/items");
-        if (!response.ok) throw new Error(`Status: ${response.status}`);
-        this.items = await response.json();
-      } catch (err) {
-        console.error("Fetch error:", err);
-      }
+    // 2. ลบ fetchItems ของเดิมทิ้ง เพราะเรามีข้อมูลใน data() แล้ว
+    fetchItems() {
+      // ไม่ต้องทำอะไร หรืออาจจะทำ Loading effect เล่นๆ ก็ได้
+      console.log("Mock data loaded");
     },
     resetForm() {
       this.formData = { subjectname: "", subjectid: "", credit: "3", grade: "A" };
@@ -188,47 +190,36 @@ export default {
       this.currentItem = item;
       this.showModal();
     },
-    async deleteRow(item) {
-      if (!item.id) return;
-      if (confirm("Are you sure you want to delete this subject?")) {
-        try {
-          await fetch(`http://localhost:3000/items/${item.id}`, { method: "DELETE" });
-          this.items = this.items.filter(i => i.id !== item.id);
-        } catch (err) { console.error(err); }
+    // 3. แก้ deleteRow ให้ลบจาก Array ในเครื่องแทน
+    deleteRow(item) {
+      if (confirm("Are you sure you want to delete this subject? (Demo Mode)")) {
+        this.items = this.items.filter(i => i.id !== item.id);
       }
     },
-    async saveData() {
-      try {
-        const payload = {
-          subjectname: this.formData.subjectname,
-          subjectid: this.formData.subjectid,
-          credit: parseInt(this.formData.credit),
-          grade: this.formData.grade,
-        };
+    // 4. แก้ saveData ให้เพิ่ม/แก้ไข Array ในเครื่องแทน
+    saveData() {
+      const payload = {
+        subjectname: this.formData.subjectname,
+        subjectid: this.formData.subjectid,
+        credit: parseInt(this.formData.credit),
+        grade: this.formData.grade,
+      };
 
-        let response;
-        if (this.isEditing && this.currentItem) {
-          response = await fetch(`http://localhost:3000/items/${this.currentItem.id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-          const updatedItem = await response.json();
-          const index = this.items.findIndex(item => item.id === this.currentItem.id);
-          if (index !== -1) this.items[index] = updatedItem;
-        } else {
-          response = await fetch("http://localhost:3000/items", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-          const newItem = await response.json();
-          this.items.push(newItem);
+      if (this.isEditing && this.currentItem) {
+        // แก้ไขข้อมูลใน Array (หา index แล้วแทนที่)
+        const index = this.items.findIndex(item => item.id === this.currentItem.id);
+        if (index !== -1) {
+            // รวม ID เดิมเข้ากับข้อมูลใหม่
+            this.items[index] = { ...payload, id: this.currentItem.id };
         }
-        
-        this.hideModal();
-        this.resetForm();
-      } catch (err) { console.error(err); }
+      } else {
+        // เพิ่มข้อมูลใหม่ (Generate ID เองมั่วๆ)
+        const newId = this.items.length > 0 ? Math.max(...this.items.map(i => i.id)) + 1 : 1;
+        this.items.push({ ...payload, id: newId });
+      }
+      
+      this.hideModal();
+      this.resetForm();
     },
     showModal() {
       const modal = new bootstrap.Modal(document.getElementById("addModal"));
@@ -241,6 +232,7 @@ export default {
     }
   },
   mounted() {
+    // เรียกใช้งานตอนเปิดหน้าเว็บ
     this.fetchItems();
   }
 };
