@@ -48,7 +48,7 @@
                     src="../../images/img004.jpg"
                     class="d-block w-100 object-fit-cover"
                     style="height: 450px;"
-                    alt="Profile 3"
+                    alt="Profile 4"
                   />
                 </div>
               </div>
@@ -71,55 +71,54 @@
             </div>
           </div>
 
-          <div class="col-lg-6" data-aos="fade-left">
-            <div class="card bg-dark text-white border-0 shadow-lg p-4 rounded-4 glass-card">
-              <div class="card-body">
-                <h2 class="card-title fw-bold mb-3 text-primary">Personal Details</h2>
-                
-                <div class="mb-3">
-                  <p class="fs-5 mb-1">Hello, I am</p>
-                  <h3 class="fw-bold">{{ name }} {{ lastname }}</h3>
-                  <p class="text-white-50 small">ID: {{ id }} | Section: {{ sid }}</p>
-                </div>
+          <div class="col-lg-6 col-12" data-aos="fade-left">
+  <div class="card bg-dark text-white border-0 shadow-lg p-3 p-md-4 rounded-4 glass-card">
+    <div class="card-body">
+      <h2 class="card-title fw-bold mb-3 text-primary fs-3 fs-md-2">Personal Details</h2>
+      
+      <div class="mb-4">
+        <p class="fs-6 fs-md-5 mb-1 text-white-50">Hello, I am</p>
+        <h3 class="fw-bold fs-4 fs-md-3 text-break">{{ name }} {{ lastname }}</h3>
+        <p class="text-white-50 small">ID: {{ id }} | Section: {{ sid }}</p>
+      </div>
 
-                <div class="mb-3">
-                  <div class="d-flex align-items-start mb-2">
-                    <div class="icon-box me-3">
-                      <i class="fa-solid fa-graduation-cap fs-5"></i>
-                    </div>
-                    <div>
-                      <h6 class="fw-bold mb-0">Current Education</h6>
-                      <p class="mb-0 text-white-50 small">Faculty of {{ faculty }}</p>
-                      <p class="mb-0 text-primary small">{{ study }}</p>
-                    </div>
-                  </div>
-                  
-                  <div class="d-flex align-items-start">
-                    <div class="icon-box me-3">
-                      <i class="fa-solid fa-school fs-5"></i>
-                    </div>
-                    <div>
-                      <h6 class="fw-bold mb-0">Background</h6>
-                      <p class="mb-0 text-white-50 small"><small>Elem:</small> {{ eleschool }}</p>
-                      <p class="mb-0 text-white-50 small"><small>High:</small> {{ highschool }}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-end mt-3">
-                  <button
-                    type="button"
-                    class="btn btn-outline-warning rounded-pill px-4 btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#editModal"
-                    @click="openEditModal"
-                  >
-                    <i class="fa-solid fa-pen-to-square me-2"></i>Edit Data
-                  </button>
-                </div>
-              </div>
-            </div>
+      <div class="mb-4">
+        <div class="d-flex align-items-start mb-3">
+          <div class="icon-box me-3 flex-shrink-0">
+            <i class="fa-solid fa-graduation-cap fs-5"></i>
           </div>
+          <div class="overflow-hidden"> <h6 class="fw-bold mb-1">Current Education</h6>
+            <p class="mb-0 text-white-50 small text-break">Faculty of {{ faculty }}</p>
+            <p class="mb-0 text-primary small text-break">{{ study }}</p>
+          </div>
+        </div>
+        
+        <div class="d-flex align-items-start">
+          <div class="icon-box me-3 flex-shrink-0">
+            <i class="fa-solid fa-school fs-5"></i>
+          </div>
+          <div class="overflow-hidden">
+            <h6 class="fw-bold mb-1">Background</h6>
+            <p class="mb-0 text-white-50 small text-break"><span class="text-secondary">Elem:</span> {{ eleschool }}</p>
+            <p class="mb-0 text-white-50 small text-break"><span class="text-secondary">High:</span> {{ highschool }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center text-md-end mt-4">
+        <button
+          type="button"
+          class="btn btn-outline-warning rounded-pill px-4 btn-sm w-100 w-md-auto"
+          data-bs-toggle="modal"
+          data-bs-target="#editModal"
+          @click="openEditModal"
+        >
+          <i class="fa-solid fa-pen-to-square me-2"></i>Edit Data
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -218,16 +217,16 @@ export default {
 </script>
 
 <style scoped>
+/* ค่า Default (มือถือ/แท็บเล็ต): ให้ยืดความสูงตามเนื้อหา และ Scroll ได้ */
 #aboutme {
   background-color: #1a1a1a;
-  /* Key Changes: Fix Height and Padding */
-  height: 100vh; /* บังคับความสูงเท่าจอภาพเป๊ะๆ */
-  padding-top: 80px; /* เว้นที่ด้านบนให้ Navbar (ปรับค่านี้ถ้า Navbar สูงกว่า 80px) */
-  box-sizing: border-box; /* รวม Padding เข้าไปในความสูง */
-  overflow: hidden; /* ป้องกันส่วนเกินล้นออกมา */
+  min-height: 100vh;      /* สูงอย่างน้อยเต็มจอ */
+  height: auto;           /* ยืดความสูงตามเนื้อหาจริง */
+  padding-top: 100px;     /* เว้นที่ให้ Navbar */
+  padding-bottom: 50px;   /* เผื่อที่ด้านล่างนิดหน่อย */
+  overflow: visible;      /* ให้ Scroll ได้ถ้าเนื้อหายาวเกิน */
 }
 
-/* ปรับแต่งเล็กน้อยเพื่อให้ Fit กับจอ */
 .line {
   width: 60px;
   height: 4px;
@@ -241,14 +240,25 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* ตั้งค่าไอคอนให้ขนาดคงที่ ป้องกันการบี้ */
 .icon-box {
   width: 45px;
   height: 45px;
+  min-width: 45px; 
   background-color: rgba(78, 87, 212, 0.2);
   color: #4e57d4;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* --- Media Query สำหรับจอใหญ่ (Desktop) --- */
+@media (min-width: 992px) {
+  #aboutme {
+    height: 100vh;        /* บังคับเต็มจอพอดี */
+    padding-bottom: 0;    /* ไม่ต้องเผื่อล่าง */
+    overflow: hidden;     /* ตัดส่วนเกิน (เพราะจัด layout พอดีแล้ว) */
+  }
 }
 </style>
