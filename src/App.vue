@@ -29,9 +29,14 @@
   </nav>
 
   <section id="home" class="min-vh-100 d-flex align-items-center text-center" @mousemove="handleMouseMove">
-    <div class="bg-shape shape-1" :style="shapeStyle1"></div>
-    <div class="bg-shape shape-2" :style="shapeStyle2"></div>
-    <div class="bg-shape shape-3" :style="shapeStyle3"></div>
+    <div class="video-wrapper">
+      <video autoplay loop muted playsinline class="bg-video" :style="videoStyle">
+        <source src="@/assets/bg-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="overlay"></div>
 
     <div class="container position-relative z-2">
       <div class="row justify-content-center">
@@ -43,20 +48,20 @@
           <h5 class="text-white-50 mt-3 mb-5" data-aos="fade-up" data-aos-delay="100">
             Piyabordin Pisitphanpong's Portfolio
           </h5>
-          <div data-aos="fade-up" data-aos-delay="200">
-            <div data-aos="fade-up" data-aos-delay="200" class="d-flex gap-3 justify-content-center">
-              <a href="#aboutme" class="btn-modern btn-glass">
-                <span class="label">View Profile</span>
-                <span class="icon"><i class="fa-regular fa-user"></i></span>
-              </a>
 
-              <a href="#transcript" class="btn-modern btn-neon">
-                <span class="label">View Transcript</span>
-                <span class="icon"><i class="fa-solid fa-file-lines"></i></span>
-                <div class="shine"></div>
-              </a>
-            </div>
+          <div data-aos="fade-up" data-aos-delay="200" class="d-flex gap-3 justify-content-center">
+            <a href="#aboutme" class="btn-modern btn-glass">
+              <span class="label">View Profile</span>
+              <span class="icon"><i class="fa-regular fa-user"></i></span>
+            </a>
+
+            <a href="#transcript" class="btn-modern btn-neon">
+              <span class="label">View Transcript</span>
+              <span class="icon"><i class="fa-solid fa-file-lines"></i></span>
+              <div class="shine"></div>
+            </a>
           </div>
+
         </div>
       </div>
     </div>
@@ -84,30 +89,18 @@ export default {
     };
   },
   computed: {
-    // คำนวณตำแหน่งของแต่ละวงกลม (ความเร็วต่างกัน = Parallax Effect)
-    shapeStyle1() {
-      // วงแรก ขยับสวนทางเมาส์เล็กน้อย (-15)
+    videoStyle() {
+      // คำนวณการขยับ (หารด้วย 30 เพื่อให้ขยับนุ่มๆ ไม่เวียนหัว)
+      // ต้องมี scale(1.1) เพื่อขยายวิดีโอให้ใหญ่กว่าจอ เวลาขยับขอบจะได้ไม่หลุด
+      const moveX = this.mouseX / -30;
+      const moveY = this.mouseY / -30;
       return {
-        transform: `translate(${this.mouseX / -15}px, ${this.mouseY / -15}px)`
-      };
-    },
-    shapeStyle2() {
-      // วงสอง ขยับตามเมาส์แบบช้าๆ (25)
-      return {
-        transform: `translate(${this.mouseX / 25}px, ${this.mouseY / 25}px)`
-      };
-    },
-    shapeStyle3() {
-      // วงสาม ขยับสวนทางเมาส์เร็วขึ้น (-10)
-      return {
-        transform: `translate(${this.mouseX / -10}px, ${this.mouseY / -10}px)`
+        transform: `scale(1.1) translate(${moveX}px, ${moveY}px)`
       };
     }
   },
   methods: {
     handleMouseMove(event) {
-      // รับค่า X, Y ของเมาส์เทียบกับจุดกึ่งกลางหน้าจอ
-      // เพื่อให้ค่ามีทั้งลบและบวก (เมาส์อยู่กลางจอคือ 0,0)
       this.mouseX = event.clientX - window.innerWidth / 2;
       this.mouseY = event.clientY - window.innerHeight / 2;
     }
@@ -173,60 +166,49 @@ body {
   color: #fff !important;
 }
 
-/* --- INTERACTIVE BACKGROUND STYLE --- */
+/* --- VIDEO BACKGROUND STYLE --- */
 #home {
   position: relative;
-  background-color: #0f0f12;
   overflow: hidden;
-  /* ป้องกัน Scrollbar โผล่เวลาของขยับ */
+  /* สำคัญมาก: ตัดส่วนเกินของวิดีโอทิ้ง */
 }
 
-.bg-shape {
+.video-wrapper {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  /* ทำให้ขอบฟุ้ง */
-  opacity: 0.6;
-  /* เพิ่ม transition เพื่อให้เวลาขยับเมาส์ มันดูลื่นไหล (Fluid) ไม่กระตุก */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* ให้วิดีโอเต็มจอโดยไม่เสียสัดส่วน */
+  /* transition: transform 0.1s ease-out; ใส่ตรงนี้เพื่อให้ลื่นไหล */
   transition: transform 0.1s ease-out;
+}
+
+/* Overlay: สีดำจางๆ ทับวิดีโอ */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  /* ปรับความเข้มตรงนี้ 0.6 = 60% */
   z-index: 1;
 }
 
-.shape-1 {
-  width: 400px;
-  height: 400px;
-  background: #4e57d4;
-  /* สีม่วงน้ำเงิน */
-  top: -50px;
-  left: -50px;
-}
-
-.shape-2 {
-  width: 300px;
-  height: 300px;
-  background: #7b2cbf;
-  /* สีม่วงเข้ม */
-  bottom: 10%;
-  right: -50px;
-}
-
-.shape-3 {
-  width: 250px;
-  height: 250px;
-  background: #240046;
-  /* สีม่วงดำ */
-  top: 40%;
-  left: 40%;
-}
-
-/* Z-Index Control */
 .z-2 {
   z-index: 2;
 }
 
-/* --- MODERN BUTTONS STYLE --- */
-
-/* โครงสร้างพื้นฐานของปุ่ม */
+/* --- MODERN BUTTONS STYLE (KEEP) --- */
 .btn-modern {
   position: relative;
   display: inline-flex;
@@ -254,7 +236,7 @@ body {
   transition: transform 0.4s ease;
 }
 
-/* --- Style 1: Glass Button (View Profile) --- */
+/* Glass Button */
 .btn-glass {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -270,12 +252,11 @@ body {
   transform: translateY(-3px);
 }
 
-/* Effect: ไอคอนขยับหนีเล็กน้อยเมื่อ Hover */
 .btn-glass:hover .icon {
   transform: translateX(5px) rotate(15deg);
 }
 
-/* --- Style 2: Neon Gradient Button (View Transcript) --- */
+/* Neon Button */
 .btn-neon {
   background: linear-gradient(135deg, #4e57d4, #8a2be2);
   border: none;
@@ -283,19 +264,13 @@ body {
   box-shadow: 0 4px 15px rgba(78, 87, 212, 0.4);
 }
 
-/* Shine Effect (แสงวิ่งผ่านปุ่ม) */
 .btn-neon .shine {
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   transition: 0.5s;
   z-index: -1;
   transform: skewX(-20deg);
@@ -308,14 +283,14 @@ body {
 }
 
 .btn-neon:hover .shine {
-  left: 100%; /* สั่งให้แสงวิ่งจากซ้ายไปขวา */
+  left: 100%;
   transition: 0.5s;
 }
 
-/* Effect: ตัวหนังสือขยับซ้าย ไอคอนขยับขวา แยกออกจากกัน */
 .btn-neon:hover .label {
   transform: translateX(-5px);
 }
+
 .btn-neon:hover .icon {
   transform: translateX(5px);
 }
