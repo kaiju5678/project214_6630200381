@@ -2,7 +2,6 @@
   <section
     id="transcript"
     class="min-vh-100 d-flex align-items-center py-5"
-    style="background-color: #121212;"
   >
     <div class="container">
       <div class="row mb-4">
@@ -239,6 +238,13 @@ export default {
 </script>
 
 <style scoped>
+#transcript {
+  /* เปลี่ยนตรงนี้! ใช้ตัวแปรแทนสี #121212 */
+  background-color: var(--section-bg-2);
+  transition: background-color 0.4s ease;
+}
+
+/* ... CSS อื่นๆ ... */
 .fw-mono {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;

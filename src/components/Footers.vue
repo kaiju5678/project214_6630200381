@@ -7,7 +7,7 @@
             <h5 class="text-white fw-bold">Portfolio Project</h5>
             <div class="line mb-4"></div>
             <p class="text-white-50">
-              This is a frontend development project for the subject 
+              This is a frontend development project for the subject
               Practicum in Software Development (01418214).
             </p>
             <div class="social-icons mt-4">
@@ -32,7 +32,8 @@
             <ul class="list-unstyled text-white-50">
               <li class="mb-2"><a href="#home" class="text-decoration-none text-reset hover-white">Home</a></li>
               <li class="mb-2"><a href="#aboutme" class="text-decoration-none text-reset hover-white">About Me</a></li>
-              <li class="mb-2"><a href="#transcript" class="text-decoration-none text-reset hover-white">Transcript</a></li>
+              <li class="mb-2"><a href="#transcript" class="text-decoration-none text-reset hover-white">Transcript</a>
+              </li>
             </ul>
           </div>
 
@@ -41,21 +42,26 @@
             <div class="line mb-4"></div>
             <ul class="list-unstyled text-white-50">
               <li class="mb-3 d-flex align-items-center">
-                <i class="fa-solid fa-building-columns me-3 text-primary"></i>
-                Dormitory Kasetsart University, Sriracha Campus
+                <i class="fa-solid fa-phone me-3 text-primary"></i>
+                <a href="tel:062-014-3400" class="text-reset text-decoration-none hover-white">
+                  062-014-3400
+                </a>
               </li>
+
               <li class="mb-3 d-flex align-items-center">
-                <i class="fa-solid fa-globe me-3 text-primary"></i>
-                <a href="https://dorms.src.ku.ac.th/" target="_blank" class="text-reset text-decoration-none hover-white">dorms.src.ku.ac.th</a>
+                <i class="fa-solid fa-envelope me-3 text-primary"></i>
+                <a href="mailto:piyabordin.p@ku.th" class="text-reset text-decoration-none hover-white">
+                  piyabordin.p@ku.th
+                </a>
               </li>
             </ul>
           </div>
         </div>
-        
+
         <div class="row mt-5 pt-4 border-top border-secondary text-center">
-            <div class="col-12">
-                <p class="mb-0 text-white-50 small">&copy; 2025 Piyabordin. All Rights Reserved.</p>
-            </div>
+          <div class="col-12">
+            <p class="mb-0 text-white-50 small">&copy; 2025 Piyabordin. All Rights Reserved.</p>
+          </div>
         </div>
       </div>
     </footer>
@@ -96,6 +102,6 @@ export default {
 }
 
 .hover-white:hover {
-    color: white !important;
+  color: white !important;
 }
 </style>
